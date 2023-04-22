@@ -3,7 +3,6 @@ import 'package:flutter_application_7/model/model.dart';
 
 import 'package:get/get.dart';
 import 'controller.dart';
-import 'model/model.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -70,12 +69,12 @@ class MyHomePage extends StatelessWidget {
                             actions: [
                               ElevatedButton(
                                 onPressed: () {
-                                  Get.find<IngredientController>()
-                                          .ingredients[index]
-                                          .name =
+                                  ingredient.name =
                                       Get.find<TextFieldController>()
                                           .ingredientName!
                                           .text;
+
+                                  Get.find<IngredientController>().update();
 
                                   Get.back();
                                   Get.find<TextFieldController>()
@@ -101,8 +100,7 @@ class MyHomePage extends StatelessWidget {
                             ],
                           ));
                         },
-                        child: Text(
-                            ingredient.name == '' ? '재료명' : ingredient.name!),
+                        child: Text(ingredient.name!),
                       ),
                       Text('3g/원'),
                       Text('텍스트 필드 자리'),
@@ -116,7 +114,7 @@ class MyHomePage extends StatelessWidget {
           onPressed: () {
             Get.find<IngredientController>()
                 .ingredients
-                .add(Ingredient(name: "", price: 0));
+                .add(Ingredient(name: '재료명', price: 0));
           },
           child: const Icon(Icons.add),
         ),
