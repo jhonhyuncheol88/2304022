@@ -6,12 +6,10 @@ import 'package:get_storage/get_storage.dart';
 
 class IngredientController extends GetxController {
   RxList<Ingredient> ingredients = <Ingredient>[].obs;
-
-  int index = 0;
+  var box = GetStorage();
 
   @override
   void onInit() {
-    var box = GetStorage();
     if (box.read('ingredients') != null) {
       var list = box.read('ingredients');
       for (var item in list) {

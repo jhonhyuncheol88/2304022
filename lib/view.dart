@@ -4,9 +4,14 @@ import 'package:flutter_application_7/model/model.dart';
 import 'package:get/get.dart';
 import 'controller.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -69,12 +74,18 @@ class MyHomePage extends StatelessWidget {
                             actions: [
                               ElevatedButton(
                                 onPressed: () {
+                                  //대체 getx는 뭔가.. 왜 setState를 써야 하는건가 ㅠㅠ
+                                  setState(() {});
                                   ingredient.name =
                                       Get.find<TextFieldController>()
                                           .ingredientName!
                                           .text;
 
-                                  Get.find<IngredientController>().update();
+                                  Get.find<IngredientController>().box.write(
+                                      'ingredients',
+                                      Get.find<IngredientController>()
+                                          .ingredients
+                                          .toJson());
 
                                   Get.back();
                                   Get.find<TextFieldController>()
