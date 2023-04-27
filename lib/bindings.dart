@@ -5,6 +5,5 @@ class MyBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => IngredientController());
-    Get.put(TextFieldController());
   }
 }

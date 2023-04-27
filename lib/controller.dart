@@ -10,29 +10,15 @@ class IngredientController extends GetxController {
 
   @override
   void onInit() {
-    if (box.read('ingredients') != null) {
-      var list = box.read('ingredients');
+    if (box.read('ingredient') != null) {
+      var list = box.read('ingredient');
       for (var item in list) {
         ingredients.add(Ingredient.fromJson(item));
       }
     }
     ever(ingredients, (val) {
-      box.write('ingredients', ingredients.toJson());
+      box.write('ingredient', ingredients.toJson());
     });
-
-    super.onInit();
-  }
-}
-
-class TextFieldController extends GetxController {
-  TextEditingController? ingredientName;
-  TextEditingController? ingredientPrice;
-
-  @override
-  void onInit() {
-    ingredientName = TextEditingController();
-    ingredientPrice = TextEditingController();
-    // TODO: implement onInit
     super.onInit();
   }
 }
