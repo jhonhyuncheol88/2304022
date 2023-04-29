@@ -1,5 +1,5 @@
 class Ingredient {
-  String name;
+  String? name;
   double? price;
   double? weight;
   double? inputWeight;
