@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_7/model/model.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'controller.dart';
 
@@ -15,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //Form 위젯 글로벌키
   final _formkey = GlobalKey<FormState>();
-  final _formkey1 = GlobalKey<FormState>();
+  Ingredient? ingredient;
 
   //text 변수 안에 ingredient.name을 넣는 함수 필요한 이유는  textformfield : 초기값을 설정하기 위해
   void ingredientOnChange(String val, Ingredient ingredient) {
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('Get X 뿌시기'),
+          title: Text('원가 계산기'),
           centerTitle: true,
         ),
         body: Obx(
@@ -110,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Get.find<IngredientController>()
                                   .ingredients
                                   .removeAt(index);
+
                               Get.back();
                             },
                             onCancel: () {
@@ -275,13 +277,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     ingredient.weight!)
                                                 .roundToDouble(); //나눈값을 반올림해서 정수값으로 표현하는 함수
 
+                                            //투입되는 레시피 재료의 원가를 계산하는 함수
                                             ingredient.inputPrice =
                                                 (ingredient.gramPrice! *
                                                         ingredient.inputWeight!)
                                                     .roundToDouble();
-                                          }
 
-                                          //투입되는 레시피 재료의 원가를 계산하는 함수
+                                            //토탈 값 구하기
+                                          }
 
                                           Get.back();
                                         },
@@ -303,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Text('${ingredient.gramPrice} g/원')),
                             Expanded(
                                 flex: 12,
-                                child: Text('${ingredient.inputWeight} 원')),
+                                child: Text('${ingredient.inputWeight} g')),
                             Expanded(
                                 flex: 12,
                                 child: Text('${ingredient.inputPrice} 원')),
@@ -312,6 +315,26 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                     }),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    Obx(() => Text(
+                        '${Get.find<IngredientController>().totalgramPrice} 원')),
+                    Obx(() => Text(
+                        '${Get.find<IngredientController>().totalinputWeight} 원')),
+                    Obx(() => Text(
+                        '${Get.find<IngredientController>().totalinputPrice} 원')),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 100,
+              )
             ],
           ),
         ),
@@ -323,7 +346,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 weight: 0,
                 gramPrice: 0,
                 inputWeight: 0,
-                inputPrice: 0));
+                inputPrice: 0,
+                totalinputPrice: 0,
+                totalgramPrice: 0,
+                totalinputWeight: 0));
+            //재료 입력 알럿창 띄우는 코드 2
           },
           child: const Icon(Icons.add),
         ),
