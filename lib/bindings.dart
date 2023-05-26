@@ -1,9 +1,11 @@
+import 'package:flutter_application_7/controllers/ingredient_controller.dart';
+import 'package:flutter_application_7/controllers/souce_controller.dart';
 import 'package:get/get.dart';
-import 'controller.dart';
 
-class MyBindings extends Bindings {
+class HomeBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => IngredientController());
+    Get.put(SouceController());
+    Get.put(IngredientController());
   }
 }

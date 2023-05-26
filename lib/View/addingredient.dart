@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_7/model/model.dart';
+import 'package:flutter_application_7/model/ingredient.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-import 'controller.dart';
+import 'package:flutter_application_7/controllers/ingredient_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -257,14 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           }
 
                                           //
-                                          Get.find<IngredientController>()
-                                              .box
-                                              .write(
-                                                  'ingredient',
-                                                  Get.find<
-                                                          IngredientController>()
-                                                      .ingredients
-                                                      .toJson());
+
                                           setState(() {});
 
                                           //gramprice 계산하는 함수
@@ -359,6 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+//재료 입력칸에서 나오는 목차 부분
 class ListSectionHeader extends StatelessWidget {
   // header row with single line of text for use has a table section header
   // background color and text color is hardcoded

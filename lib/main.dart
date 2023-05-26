@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_7/View/homepage.dart';
 import 'package:flutter_application_7/bindings.dart';
-import 'package:flutter_application_7/view.dart';
+import 'package:flutter_application_7/View/addingredient.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -17,9 +18,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: MyBindings(),
+      initialBinding: HomeBinding(),
+      initialRoute: "/",
+      getPages: [
+        GetPage(
+          name: "/",
+          page: () => const HomePage(),
+        ),
+        GetPage(
+          name: "/addingredient",
+          page: () => const MyHomePage(),
+        )
+      ],
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }
